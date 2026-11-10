@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables de thème : clair par défaut, sombre via la classe "dark" sur <html>. */
+:root {
+  --fond: #f5f9ff;
+  --texte: #0a1a3a;
+  --texte-doux: #4a5d7e;
+  --surface: #ffffff;
+  --bordure: #d8e3f2;
+}
+
+.dark {
+  --fond: #060f24;
+  --texte: #e8f0ff;
+  --texte-doux: #9fb3d6;
+  --surface: #0f2650;
+  --bordure: #1d3a6e;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[var(--fond)] text-[var(--texte)] antialiased;
+  }
+
+  /* Respecte les préférences d'animation de l'utilisateur. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-soleil-500 ring-offset-2 ring-offset-[var(--fond)];
+  }
+}
+
+@layer components {
+  .carte {
+    @apply rounded-2xl border border-[var(--bordure)] bg-[var(--surface)] shadow-sm transition-all duration-300;
+  }
+
+  .carte-survol {
+    @apply hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .bouton-primaire {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-soleil-500 px-5 py-2.5 font-semibold text-white shadow-md transition hover:bg-soleil-600 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .bouton-secondaire {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--bordure)] bg-[var(--surface)] px-5 py-2.5 font-semibold text-[var(--texte)] transition hover:border-ciel-400;
+  }
+
+  .champ {
+    @apply w-full rounded-xl border border-[var(--bordure)] bg-[var(--surface)] px-4 py-2.5 text-[var(--texte)] placeholder:text-[var(--texte-doux)] focus:border-ciel-500 focus:outline-none focus:ring-2 focus:ring-ciel-300;
+  }
+
+  .titre-section {
+    @apply text-2xl font-bold tracking-tight sm:text-3xl;
+  }
+}
